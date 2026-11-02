@@ -1,1 +1,50 @@
-<p>team-list works!</p>
+<div class="container-fluid p-0">
+
+  <div class="mb-4">
+    <h1 class="h3 fw-bold mb-2">Teams</h1>
+    <p class="text-secondary mb-0">
+      Explore teams and their assigned managers.
+    </p>
+  </div>
+
+  <div class="row g-4">
+
+    @for (team of teams; track team.id) {
+      <div class="col-md-6 col-xl-4">
+
+        <article class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div class="team-icon">
+                <i class="bi bi-people" aria-hidden="true"></i>
+              </div>
+
+              <h2 class="h5 fw-bold mb-0">
+                {{ team.name }}
+              </h2>
+            </div>
+
+            <div class="mb-2">
+              <span class="text-secondary">Manager:</span>
+              <strong class="ms-1">{{ team.manager }}</strong>
+            </div>
+
+            <div>
+              <span class="text-secondary">Members:</span>
+              <strong class="ms-1">{{ team.memberCount }}</strong>
+            </div>
+
+          </div>
+        </article>
+
+      </div>
+    } @empty {
+      <div class="col-12">
+        <p class="text-secondary">No teams available.</p>
+      </div>
+    }
+
+  </div>
+
+</div>

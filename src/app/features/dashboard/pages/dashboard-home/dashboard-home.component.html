@@ -1,1 +1,82 @@
-<p>dashboard-home works!</p>
+<div class="container-fluid p-0">
+
+  <div class="mb-4">
+    <h1 class="h3 fw-bold mb-2">Dashboard Overview</h1>
+    <p class="text-secondary mb-0">
+      An overview of team activity and work progress.
+    </p>
+  </div>
+
+  <div class="alert alert-info border-0 mb-4" role="note">
+    <i class="bi bi-info-circle me-2" aria-hidden="true"></i>
+    This dashboard currently displays sample data.
+    API integration will be added later.
+  </div>
+
+  <div class="row g-4">
+
+    @for (stat of stats; track stat.label) {
+      <div class="col-sm-6 col-xl-3">
+        <article class="card stat-card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="text-secondary mb-2">
+                  {{ stat.label }}
+                </p>
+
+                <h2 class="fw-bold mb-0">
+                  {{ stat.value }}
+                </h2>
+              </div>
+
+              <div
+                class="stat-icon"
+                [class]="'text-' + stat.color"
+              >
+                <i
+                  class="bi"
+                  [class]="stat.icon"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </div>
+
+          </div>
+        </article>
+      </div>
+    }
+
+  </div>
+
+  <div class="row g-4 mt-2">
+
+    <div class="col-lg-8">
+      <section class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <h2 class="h5 fw-bold">Work Summary</h2>
+
+          <p class="text-secondary mb-0">
+            Charts and live activity summaries will be added
+            when we implement the task-management feature.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-lg-4">
+      <section class="card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+          <h2 class="h5 fw-bold">Quick Information</h2>
+
+          <p class="text-secondary mb-0">
+            Use the sidebar to explore work items and teams.
+          </p>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+</div>

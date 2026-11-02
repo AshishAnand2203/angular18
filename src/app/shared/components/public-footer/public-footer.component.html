@@ -1,1 +1,25 @@
-<p>public-footer works!</p>
+<footer class="site-footer">
+  <div class="container">
+    <div class="row align-items-center g-3">
+
+      <div class="col-md-6 text-center text-md-start">
+        <span class="fw-semibold">Team Work Portal</span>
+        <div class="small mt-1">
+          &copy; {{ currentYear }} All rights reserved.
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <nav
+          class="d-flex justify-content-center justify-content-md-end gap-3"
+          aria-label="Footer navigation"
+        >
+          <a routerLink="/about">About</a>
+          <a routerLink="/services">Services</a>
+          <a routerLink="/contact">Contact</a>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+</footer>

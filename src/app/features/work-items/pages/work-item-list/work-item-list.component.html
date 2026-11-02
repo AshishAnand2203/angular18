@@ -1,1 +1,60 @@
-<p>work-item-list works!</p>
+<div class="container-fluid p-0">
+
+  <div class="mb-4">
+    <h1 class="h3 fw-bold mb-2">Work Items</h1>
+
+    <p class="text-secondary mb-0">
+      View tasks assigned to team members.
+    </p>
+  </div>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Task ID</th>
+              <th scope="col">Task</th>
+              <th scope="col">Assigned To</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (item of workItems; track item.id) {
+              <tr>
+                <td>#{{ item.id }}</td>
+                <td class="fw-semibold">{{ item.title }}</td>
+                <td>{{ item.assignedTo }}</td>
+                <td>{{ item.priority }}</td>
+                <td>
+                  <span
+                    class="badge rounded-pill"
+                    [class.text-bg-warning]="item.status === 'Pending'"
+                    [class.text-bg-primary]="item.status === 'In Progress'"
+                    [class.text-bg-success]="item.status === 'Completed'"
+                  >
+                    {{ item.status }}
+                  </span>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="text-center py-4">
+                  No work items available.
+                </td>
+              </tr>
+            }
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>

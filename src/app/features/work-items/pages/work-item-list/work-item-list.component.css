@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+.card {
+  border-radius: 14px;
+}
+
+.table th {
+  white-space: nowrap;
+  font-size: 13px;
+  color: #475569;
+}
+
+.table td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-size: 14px;
+}

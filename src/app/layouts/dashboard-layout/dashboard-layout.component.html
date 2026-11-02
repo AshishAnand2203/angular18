@@ -1,1 +1,108 @@
-<p>dashboard-layout works!</p>
+
+<div class="dashboard-layout">
+
+  @if (sidebarOpen()) {
+    <button
+      type="button"
+      class="sidebar-backdrop d-lg-none"
+      aria-label="Close sidebar"
+      (click)="closeSidebar()"
+    ></button>
+  }
+
+  <aside
+    id="dashboard-sidebar"
+    class="dashboard-sidebar"
+    [class.sidebar-open]="sidebarOpen()"
+  >
+    <div class="sidebar-brand">
+      <a
+        routerLink="/workspace/dashboard"
+        class="brand-link"
+        (click)="closeSidebar()"
+      >
+        <span class="brand-icon">TW</span>
+        <span>Team Work Portal</span>
+      </a>
+    </div>
+
+    <div class="sidebar-content">
+
+      <div class="sidebar-heading">WORKSPACE</div>
+
+      <nav aria-label="Workspace navigation">
+
+        @for (item of navigation; track item.path) {
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            class="sidebar-link"
+            (click)="closeSidebar()"
+          >
+            <i
+              class="bi"
+              [class]="item.icon"
+              aria-hidden="true"
+            ></i>
+
+            <span>{{ item.label }}</span>
+          </a>
+        }
+
+      </nav>
+
+    </div>
+
+    <div class="sidebar-bottom">
+      <a routerLink="/" class="sidebar-link">
+        <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+        <span>View Website</span>
+      </a>
+    </div>
+
+  </aside>
+
+  <div class="dashboard-main">
+
+    <header class="dashboard-topbar">
+      <div class="d-flex align-items-center gap-3">
+
+        <button
+          type="button"
+          class="btn sidebar-toggle d-lg-none"
+          aria-label="Toggle sidebar"
+          aria-controls="dashboard-sidebar"
+          [attr.aria-expanded]="sidebarOpen()"
+          (click)="toggleSidebar()"
+        >
+          <i class="bi bi-list fs-4" aria-hidden="true"></i>
+        </button>
+
+        <div>
+          <div class="fw-semibold">Workspace</div>
+          <div class="small text-secondary">
+            Team management portal
+          </div>
+        </div>
+
+      </div>
+
+      <div class="d-flex align-items-center gap-3">
+        <span class="demo-label d-none d-sm-inline">
+          Demo Workspace
+        </span>
+
+        <div class="avatar" aria-label="Demo user">
+          DU
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <router-outlet />
+    </main>
+
+  </div>
+
+</div>

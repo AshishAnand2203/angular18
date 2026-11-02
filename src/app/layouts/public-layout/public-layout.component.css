@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.public-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.public-content {
+  flex: 1;
+  min-width: 0;
+}
