@@ -1,0 +1,84 @@
+<header class="site-header">
+  <div class="container header-content">
+
+    <a
+      class="brand"
+      routerLink="/"
+      (click)="closeMenu()"
+      aria-label="Team Work Portal home"
+    >
+      <span class="brand-mark">TW</span>
+      <span>Team Work Portal</span>
+    </a>
+
+    <button
+      type="button"
+      class="menu-toggle btn d-lg-none"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="public-navigation"
+      aria-label="Toggle navigation"
+    >
+      <i
+        class="bi"
+        [class.bi-list]="!menuOpen()"
+        [class.bi-x-lg]="menuOpen()"
+        aria-hidden="true"
+      ></i>
+    </button>
+
+    <nav
+      id="public-navigation"
+      class="public-nav"
+      [class.mobile-open]="menuOpen()"
+      aria-label="Main navigation"
+    >
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+      >
+        Home
+      </a>
+
+      <a
+        routerLink="/about"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+      >
+        About Us
+      </a>
+
+      <a
+        routerLink="/services"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+      >
+        Services
+      </a>
+
+      <a
+        routerLink="/contact"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+      >
+        Contact Us
+      </a>
+
+      <a
+        routerLink="/workspace/dashboard"
+        class="btn btn-primary workspace-link"
+        (click)="closeMenu()"
+      >
+        Open Workspace
+        <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+      </a>
+    </nav>
+
+  </div>
+</header>

@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.form-control {
+  padding: 12px 15px;
+  border-radius: 9px;
+}
+
+.form-control:focus {
+  border-color: #3358e8;
+  box-shadow: 0 0 0 0.2rem rgba(51, 88, 232, 0.12);
+}
+
+.btn-primary {
+  background-color: #3358e8;
+  border-color: #3358e8;
+}
+
+.btn-primary:hover {
+  background-color: #2445c9;
+  border-color: #2445c9;
+}

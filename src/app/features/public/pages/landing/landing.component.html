@@ -1,0 +1,139 @@
+<div class="landing-page">
+  <header class="site-header">
+    <div class="container header-content">
+      <!-- <a class="brand" href="/" aria-label="Team Work Portal home">
+        <span class="brand-mark">TW</span>
+        <span>{{ appName }}</span>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#roles">Roles</a>
+      </nav> -->
+
+       <a
+      class="brand"
+      routerLink="/"
+      aria-label="Team Work Portal home">
+
+      <span class="brand-mark">TW</span>
+      <span>{{ appName }}</span>
+
+    </a>
+
+    <nav
+      aria-label="Main navigation"
+      class="d-flex flex-wrap align-items-center gap-3">
+
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </a>
+
+      <a
+        routerLink="/about"
+        routerLinkActive="active">
+        About Us
+      </a>
+
+      <a
+        routerLink="/services"
+        routerLinkActive="active">
+        Services
+      </a>
+
+      <a
+        routerLink="/contact"
+        routerLinkActive="active">
+        Contact Us
+      </a>
+
+    </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <span class="eyebrow"> Angular 18 Employee Management Application </span>
+
+        <h1 >{{ heading }}</h1>
+
+        <p class="hero-description">{{ description }}</p>
+
+        <a href="#roles" class="btn-primary">Explore roles</a>
+      </div>
+    </section>
+
+    <section id="features" class="features-section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow"> What we are building </span>
+
+          <h2>One platform for your entire team</h2>
+          <p>
+            Track tasks, manage employees and simplify team collaboration
+            through role-based dashboards.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon">01</div>
+            <h3>Employee management</h3>
+            <p>Organize employee profiles, teams and account access.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">02</div>
+            <h3>Task management</h3>
+            <p>Assign work, update progress and manage approvals.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">03</div>
+            <h3>Role-based dashboards</h3>
+            <p>Provide the right tools to every application role.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="roles" class="roles-section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Application roles</span>
+          <h2>Designed for every responsibility</h2>
+        </div>
+
+        <div class="roles-grid">
+          @for (role of roles; track role.name) {
+            <article class="role-card">
+              <div class="role-icon">
+                {{ role.name.charAt(0) }}
+              </div>
+              <h3>
+                {{ role.name }}
+              </h3>
+              <p>{{ role.description }}</p>
+
+              <span class="role-label"> Dashboard coming soon</span>
+            </article>
+          } @empty {
+            <p class="empty-message">No application roles available.</p>
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+        <span>{{appName}}</span>
+
+        <span>&copy; {{currentYear}} All rights reserved.</span>
+    </div>
+  </footer>
+</div>

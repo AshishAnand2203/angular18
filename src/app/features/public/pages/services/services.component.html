@@ -1,0 +1,68 @@
+<div class="container py-4">
+
+  <nav aria-label="Public navigation"
+       class="d-flex gap-3 flex-wrap mb-4">
+    <a routerLink="/">Home</a>
+    <a routerLink="/about">About Us</a>
+    <a routerLink="/services">Services</a>
+    <a routerLink="/contact">Contact Us</a>
+  </nav>
+
+  <section class="text-center py-5">
+
+    <span class="text-primary fw-bold text-uppercase">
+      Our Features
+    </span>
+
+    <h1 class="display-5 fw-bold mt-3">
+      What Our Platform Offers
+    </h1>
+
+    <p class="lead text-secondary mx-auto intro-text">
+      Explore the core features of our employee
+      and task management application.
+    </p>
+
+  </section>
+
+  <section class="row g-4 pb-5">
+
+    @for (service of services; track service.id) {
+
+      <div class="col-md-6 col-lg-4">
+
+        <article class="card h-100 service-card border-0 shadow-sm">
+
+          <div class="card-body p-4">
+
+            <div class="service-icon mb-4">
+              {{ service.icon }}
+            </div>
+
+            <h2 class="h5 fw-bold">
+              {{ service.title }}
+            </h2>
+
+            <p class="text-secondary mb-0">
+              {{ service.description }}
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    } @empty {
+
+      <div class="col-12 text-center">
+        <p class="text-secondary">
+          No services are currently available.
+        </p>
+      </div>
+
+    }
+
+  </section>
+
+</div>

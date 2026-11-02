@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.about-panel {
+  background: linear-gradient(135deg, #3358e8, #182e86);
+  color: #ffffff;
+  box-shadow: 0 15px 35px rgba(51, 88, 232, 0.15);
+}
