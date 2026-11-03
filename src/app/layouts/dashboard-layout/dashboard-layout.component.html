@@ -5,46 +5,64 @@
     <button
       type="button"
       class="sidebar-backdrop d-lg-none"
-      aria-label="Close sidebar"
-      (click)="closeSidebar()"
-    ></button>
+      aria-label="Close navigation"
+      (click)="closeSidebar()">
+    </button>
   }
 
+  <!-- Sidebar -->
   <aside
     id="dashboard-sidebar"
     class="dashboard-sidebar"
-    [class.sidebar-open]="sidebarOpen()"
-  >
+    [class.sidebar-open]="sidebarOpen()">
+
     <div class="sidebar-brand">
       <a
-        routerLink="/workspace/dashboard"
+        [routerLink]="auth.dashboardPath()"
         class="brand-link"
-        (click)="closeSidebar()"
-      >
+        (click)="closeSidebar()">
+
         <span class="brand-icon">TW</span>
-        <span>Team Work Portal</span>
+
+        <span class="brand-text">
+          <strong>Team Work</strong>
+          <small>Portal Administration</small>
+        </span>
       </a>
     </div>
 
     <div class="sidebar-content">
 
-      <div class="sidebar-heading">WORKSPACE</div>
+      <div class="sidebar-heading">
+        MAIN MENU
+      </div>
 
-      <nav aria-label="Workspace navigation">
+      <nav class="sidebar-nav" aria-label="Workspace navigation">
 
-        @for (item of navigation; track item.path) {
+        <a
+          [routerLink]="auth.dashboardPath()"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          class="sidebar-link"
+          (click)="closeSidebar()">
+
+          <i class="bi bi-grid-1x2" aria-hidden="true"></i>
+          <span>Dashboard</span>
+        </a>
+
+        @for (item of visibleNavigation(); track item.path) {
           <a
             [routerLink]="item.path"
             routerLinkActive="active"
             ariaCurrentWhenActive="page"
             class="sidebar-link"
-            (click)="closeSidebar()"
-          >
+            (click)="closeSidebar()">
+
             <i
               class="bi"
               [class]="item.icon"
-              aria-hidden="true"
-            ></i>
+              aria-hidden="true">
+            </i>
 
             <span>{{ item.label }}</span>
           </a>
@@ -54,54 +72,100 @@
 
     </div>
 
-    <div class="sidebar-bottom">
-      <a routerLink="/" class="sidebar-link">
-        <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-        <span>View Website</span>
+    <div class="sidebar-footer">
+
+      <a
+        routerLink="/"
+        class="sidebar-link"
+        (click)="closeSidebar()">
+
+        <i class="bi bi-globe2" aria-hidden="true"></i>
+        <span>Visit Website</span>
       </a>
+
+      @if (auth.isAuthenticated()) {
+        <button
+          type="button"
+          class="sidebar-link logout-link"
+          (click)="logout()">
+
+          <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+          <span>Logout</span>
+        </button>
+      } @else {
+        <a routerLink="/login" class="sidebar-link">
+          <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+          <span>Sign In</span>
+        </a>
+      }
+
     </div>
 
   </aside>
 
+  <!-- Main Workspace -->
   <div class="dashboard-main">
 
     <header class="dashboard-topbar">
-      <div class="d-flex align-items-center gap-3">
+
+      <div class="topbar-left">
 
         <button
           type="button"
-          class="btn sidebar-toggle d-lg-none"
+          class="btn menu-toggle d-lg-none"
           aria-label="Toggle sidebar"
           aria-controls="dashboard-sidebar"
           [attr.aria-expanded]="sidebarOpen()"
-          (click)="toggleSidebar()"
-        >
-          <i class="bi bi-list fs-4" aria-hidden="true"></i>
+          (click)="toggleSidebar()">
+
+          <i class="bi bi-list" aria-hidden="true"></i>
         </button>
 
-        <div>
-          <div class="fw-semibold">Workspace</div>
-          <div class="small text-secondary">
-            Team management portal
+        <div class="topbar-heading">
+          <div class="topbar-title">Workspace</div>
+          <div class="topbar-subtitle">
+            Team Work Portal
           </div>
         </div>
 
       </div>
 
-      <div class="d-flex align-items-center gap-3">
-        <span class="demo-label d-none d-sm-inline">
-          Demo Workspace
-        </span>
+      <div class="topbar-right">
 
-        <div class="avatar" aria-label="Demo user">
-          DU
-        </div>
+        @if (auth.currentUser(); as user) {
+          <div class="user-details d-none d-sm-block">
+            <div class="user-name">{{ user.name }}</div>
+            <div class="user-role text-capitalize">
+              {{ user.role }}
+            </div>
+          </div>
+
+          <div class="user-avatar" aria-label="Current user">
+            {{ userInitials() }}
+          </div>
+        } @else {
+          <a routerLink="/login" class="btn btn-primary btn-sm">
+            Sign In
+          </a>
+        }
+
       </div>
+
     </header>
 
     <main class="dashboard-content">
       <router-outlet />
     </main>
+
+    <footer class="dashboard-bottom">
+      <span>
+        &copy; {{ 2026 }} Team Work Portal
+      </span>
+
+      <span class="d-none d-sm-inline">
+        Employee &amp; Task Management
+      </span>
+    </footer>
 
   </div>
 

@@ -1,0 +1,54 @@
+<div class="unauthorized-page">
+  <div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100 py-5">
+
+      <div class="col-md-8 col-lg-6 text-center">
+
+        <div class="access-icon mx-auto mb-4">
+          <i class="bi bi-shield-exclamation" aria-hidden="true"></i>
+        </div>
+
+        <div class="error-code mb-2">403</div>
+
+        <h1 class="h2 fw-bold mb-3">
+          Access Denied
+        </h1>
+
+        <p class="text-secondary mb-4">
+          Your account does not have permission to open
+          this page.
+        </p>
+
+        @if (auth.currentUser(); as user) {
+          <div class="alert alert-light border mb-4">
+            Signed in as
+            <strong>{{ user.name }}</strong>
+            ({{ user.role }})
+          </div>
+
+          <a
+            [routerLink]="auth.dashboardPath()"
+            class="btn btn-primary px-4"
+          >
+            <i class="bi bi-speedometer2 me-2" aria-hidden="true"></i>
+            Back to Dashboard
+          </a>
+        } @else {
+          <a routerLink="/login" class="btn btn-primary px-4">
+            <i class="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>
+            Sign In
+          </a>
+        }
+
+        <div class="mt-4">
+          <a routerLink="/" class="text-decoration-none">
+            <i class="bi bi-house-door me-1" aria-hidden="true"></i>
+            Return to Home
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

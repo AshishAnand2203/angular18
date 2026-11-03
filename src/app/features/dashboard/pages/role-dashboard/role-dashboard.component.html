@@ -1,0 +1,87 @@
+
+<div class="container-fluid p-0">
+
+  <div class="mb-4">
+    <div class="text-secondary small mb-2">
+      WORKSPACE / DASHBOARD
+    </div>
+
+    <h1 class="h3 fw-bold mb-2">{{ roleTitle }}</h1>
+
+    <p class="text-secondary mb-0">
+      {{ welcomeMessage() }}
+    </p>
+  </div>
+
+  <div class="welcome-card rounded-4 p-4 p-md-5 mb-4">
+    <div class="row align-items-center g-4">
+
+      <div class="col-lg-8">
+        <span class="badge bg-white text-primary mb-3">
+          Team Work Portal
+        </span>
+
+        <h2 class="h4 fw-bold mb-3">
+          Your workspace is ready
+        </h2>
+
+        <p class="mb-0">
+          Access work items, teams, and the tools you need
+          from your dashboard.
+        </p>
+      </div>
+
+      <div class="col-lg-4 text-lg-end">
+        <i
+          class="bi bi-grid-1x2 dashboard-illustration"
+          aria-hidden="true"
+        ></i>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    @for (feature of features(); track feature.path) {
+      <div class="col-md-6">
+
+        <a
+          [routerLink]="feature.path"
+          class="feature-link text-decoration-none"
+        >
+          <article class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+
+              <div class="feature-icon mb-3">
+                <i
+                  class="bi"
+                  [class]="feature.icon"
+                  aria-hidden="true"
+                ></i>
+              </div>
+
+              <h3 class="h5 fw-bold text-dark">
+                {{ feature.title }}
+              </h3>
+
+              <p class="text-secondary mb-0">
+                {{ feature.description }}
+              </p>
+
+            </div>
+          </article>
+        </a>
+
+      </div>
+    }
+
+  </div>
+
+  <div class="alert alert-info border-0 mt-4" role="note">
+    <i class="bi bi-info-circle me-2" aria-hidden="true"></i>
+    Authentication is simulated. Access restrictions will
+    be implemented in the next section.
+  </div>
+
+</div>

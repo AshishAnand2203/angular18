@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.global-loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2200;
+  height: 4px;
+  overflow: hidden;
+  background: #dce5ff;
+  pointer-events: none;
+}
+
+.loading-progress {
+  width: 35%;
+  height: 100%;
+  background: #3358e8;
+  animation: loading-slide 1.2s ease-in-out infinite;
+}
+
+@keyframes loading-slide {
+  from {
+    transform: translateX(-110%);
+  }
+
+  to {
+    transform: translateX(400%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-progress {
+    width: 100%;
+    animation: none;
+  }
+}

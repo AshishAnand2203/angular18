@@ -1,6 +1,5 @@
 <header class="site-header">
   <div class="container header-content">
-
     <a
       class="brand"
       routerLink="/"
@@ -70,15 +69,25 @@
         Contact Us
       </a>
 
-      <a
-        routerLink="/workspace/dashboard"
-        class="btn btn-primary workspace-link"
-        (click)="closeMenu()"
-      >
-        Open Workspace
-        <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-      </a>
+      @if (auth.isAuthenticated()) {
+        <a
+          [routerLink]="auth.dashboardPath()"
+          class="btn btn-primary workspace-link"
+          (click)="closeMenu()"
+        >
+          Open Workspace
+          <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+        </a>
+      } @else {
+        <a
+          routerLink="/login"
+          class="btn btn-primary workspace-link"
+          (click)="closeMenu()"
+        >
+          Sign In
+          <i class="bi bi-box-arrow-in-right ms-1" aria-hidden="true"></i>
+        </a>
+      }
     </nav>
-
   </div>
 </header>

@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+.welcome-card {
+  background: linear-gradient(120deg, #3358e8, #162e89);
+  color: #fff;
+}
+
+.dashboard-illustration {
+  font-size: 100px;
+  opacity: 0.25;
+}
+
+.card {
+  border-radius: 14px;
+  transition: transform 0.2s ease;
+}
+
+.feature-link:hover .card {
+  transform: translateY(-3px);
+}
+
+.feature-icon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  background: #edf2ff;
+  color: #3358e8;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .feature-link:hover .card {
+    transform: none;
+  }
+}
