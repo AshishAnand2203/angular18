@@ -1,3 +1,4 @@
+
 :host {
   display: block;
 }
@@ -9,11 +10,47 @@
 .table th {
   white-space: nowrap;
   font-size: 13px;
+  font-weight: 600;
   color: #475569;
 }
 
 .table td {
+  font-size: 14px;
   padding-top: 16px;
   padding-bottom: 16px;
-  font-size: 14px;
+}
+
+.table.table-sm td {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.table td:first-child {
+  white-space: nowrap;
+}
+
+.table .btn {
+  min-width: 34px;
+}
+
+.form-control,
+.form-select {
+  min-height: 42px;
+  border-radius: 8px;
+}
+
+.input-group .form-control {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.progress {
+  height: 9px;
+  border-radius: 20px;
+}
+
+@media (max-width: 767.98px) {
+  .card-body {
+    padding: 18px !important;
+  }
 }

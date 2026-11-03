@@ -1,0 +1,31 @@
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+  <div>
+    <h1 class="h3 fw-bold mb-2">
+      {{ title() }}
+    </h1>
+
+    @if (subtitle()) {
+      <p class="text-secondary mb-0">
+        {{ subtitle() }}
+      </p>
+    }
+  </div>
+
+  @if (actionLabel()) {
+    <button
+      type="button"
+      class="btn btn-primary d-inline-flex align-items-center gap-2"
+      (click)="onActionClick()"
+    >
+      <i
+        class="bi"
+        [class]="actionIcon()"
+        aria-hidden="true"
+      ></i>
+
+      <span>{{ actionLabel() }}</span>
+    </button>
+  }
+
+</div>

@@ -1,51 +1,258 @@
+
 <div class="container-fluid p-0">
 
-  <div class="mb-4">
-    <h1 class="h3 fw-bold mb-2">Work Items</h1>
+  <app-page-header
+    title="Work Items"
+    subtitle="Manage and organize assigned tasks"
+    actionLabel="Add Sample Task"
+    actionIcon="bi-plus-lg"
+    (action)="addSampleTask()"
+  />
 
-    <p class="text-secondary mb-0">
-      View tasks assigned to team members.
-    </p>
+  <div class="row g-3 mb-4">
+
+    <div class="col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-secondary small mb-2">Total Tasks</div>
+          <h2 class="h3 fw-bold mb-0">{{ totalItems() }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-secondary small mb-2">In Progress</div>
+          <h2 class="h3 fw-bold mb-0">{{ activeItems() }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-secondary small mb-2">Pending</div>
+          <h2 class="h3 fw-bold mb-0">{{ pendingItems() }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-secondary small mb-2">Completed</div>
+          <h2 class="h3 fw-bold mb-0">{{ completedItems() }}</h2>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="card border-0 shadow-sm">
     <div class="card-body p-4">
 
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+          <h2 class="h5 fw-bold mb-1">Task List</h2>
+          <p class="text-secondary small mb-0">
+            Showing {{ filteredWorkItems().length }}
+            of {{ totalItems() }} tasks
+          </p>
+        </div>
+
+        <div class="form-check form-switch">
+          <input
+            id="compact-view"
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            [checked]="compactView()"
+            (change)="toggleCompactView()"
+          >
+
+          <label class="form-check-label" for="compact-view">
+            Compact view
+          </label>
+        </div>
+      </div>
+
+      <div class="row g-3 align-items-end mb-4">
+
+        <div class="col-lg-5">
+          <label class="form-label fw-semibold" for="task-search">
+            Search tasks
+          </label>
+
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-search" aria-hidden="true"></i>
+            </span>
+
+            <input
+              id="task-search"
+              type="search"
+              class="form-control"
+              placeholder="Search by title or assignee"
+              [value]="searchTerm()"
+              (input)="onSearchInput($event)"
+            >
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <app-priority-filter
+            [(value)]="selectedPriority"
+          />
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <label class="form-label fw-semibold" for="status-filter">
+            Filter by status
+          </label>
+
+          <select
+            id="status-filter"
+            class="form-select"
+            [value]="selectedStatus()"
+            (change)="onStatusChange($event)"
+          >
+            @for (status of statusOptions; track status) {
+              <option [value]="status">
+                {{ status === 'All' ? 'All statuses' : status }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="col-lg-1">
+          <button
+            type="button"
+            class="btn btn-outline-secondary w-100"
+            [disabled]="!hasActiveFilters()"
+            (click)="clearFilters()"
+            aria-label="Clear all filters"
+            title="Clear filters"
+          >
+            <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </div>
+
+      @if (hasActiveFilters()) {
+        <div class="alert alert-light border py-2 mb-3">
+          <i class="bi bi-funnel me-2" aria-hidden="true"></i>
+          You are viewing filtered results.
+        </div>
+      }
+
       <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
+        <table
+          class="table table-hover align-middle mb-0"
+          [class.table-sm]="compactView()"
+        >
 
           <thead class="table-light">
             <tr>
-              <th scope="col">Task ID</th>
+              <th scope="col">ID</th>
               <th scope="col">Task</th>
               <th scope="col">Assigned To</th>
               <th scope="col">Priority</th>
               <th scope="col">Status</th>
+              <th scope="col" class="text-end">Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            @for (item of workItems; track item.id) {
+            @for (
+              item of filteredWorkItems();
+              track item.id;
+              let rowNumber = $index
+            ) {
               <tr>
                 <td>#{{ item.id }}</td>
-                <td class="fw-semibold">{{ item.title }}</td>
-                <td>{{ item.assignedTo }}</td>
-                <td>{{ item.priority }}</td>
+
                 <td>
-                  <span
-                    class="badge rounded-pill"
-                    [class.text-bg-warning]="item.status === 'Pending'"
-                    [class.text-bg-primary]="item.status === 'In Progress'"
-                    [class.text-bg-success]="item.status === 'Completed'"
+                  <div class="fw-semibold">{{ item.title }}</div>
+                  <div class="small text-secondary">
+                    Row {{ rowNumber + 1 }}
+                  </div>
+                </td>
+
+                <td>{{ item.assignedTo }}</td>
+
+                <td>
+                  @switch (item.priority) {
+                    @case ('High') {
+                      <span class="text-danger fw-semibold">
+                        <i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>
+                        High
+                      </span>
+                    }
+
+                    @case ('Medium') {
+                      <span class="text-warning-emphasis fw-semibold">
+                        <i class="bi bi-dash-circle me-1" aria-hidden="true"></i>
+                        Medium
+                      </span>
+                    }
+
+                    @case ('Low') {
+                      <span class="text-success fw-semibold">
+                        <i class="bi bi-check-circle me-1" aria-hidden="true"></i>
+                        Low
+                      </span>
+                    }
+
+                    @default {
+                      <span class="text-secondary">Unknown</span>
+                    }
+                  }
+                </td>
+
+                <td>
+                  <app-status-badge
+                    [label]="item.status"
+                    [variant]="getStatusVariant(item.status)"
+                  />
+                </td>
+
+                <td class="text-end">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    [attr.aria-label]="'Delete task ' + item.id"
+                    (click)="requestDelete(item.id)"
                   >
-                    {{ item.status }}
-                  </span>
+                    <i class="bi bi-trash" aria-hidden="true"></i>
+                  </button>
                 </td>
               </tr>
+
             } @empty {
               <tr>
-                <td colspan="5" class="text-center py-4">
-                  No work items available.
+                <td colspan="6" class="text-center py-5">
+
+                  <i
+                    class="bi bi-inbox fs-2 text-secondary"
+                    aria-hidden="true"
+                  ></i>
+
+                  <p class="mt-2 mb-2 text-secondary">
+                    No matching tasks found.
+                  </p>
+
+                  @if (hasActiveFilters()) {
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary btn-sm"
+                      (click)="clearFilters()"
+                    >
+                      Clear filters
+                    </button>
+                  }
+
                 </td>
               </tr>
             }
@@ -54,7 +261,38 @@
         </table>
       </div>
 
+      <div class="mt-4">
+        <div class="d-flex justify-content-between mb-2">
+          <span class="small text-secondary">Task completion</span>
+          <strong class="small">{{ completionPercentage() }}%</strong>
+        </div>
+
+        <div
+          class="progress"
+          role="progressbar"
+          aria-label="Task completion"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [attr.aria-valuenow]="completionPercentage()"
+        >
+          <div
+            class="progress-bar bg-success"
+            [style.width.%]="completionPercentage()"
+          ></div>
+        </div>
+      </div>
+
     </div>
   </div>
+
+  <app-confirm-dialog
+    [open]="pendingDeleteId() !== null"
+    title="Delete work item?"
+    message="Are you sure you want to remove this work item?"
+    confirmLabel="Delete"
+    cancelLabel="Cancel"
+    (confirmed)="deleteSelected()"
+    (cancelled)="cancelDelete()"
+  />
 
 </div>

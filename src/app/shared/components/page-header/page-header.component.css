@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  color: #18263d;
+}
+
+.btn-primary {
+  background: #3358e8;
+  border-color: #3358e8;
+}
+
+.btn-primary:hover {
+  background: #2445c9;
+  border-color: #2445c9;
+}

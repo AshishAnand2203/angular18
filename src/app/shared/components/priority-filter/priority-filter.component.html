@@ -1,0 +1,18 @@
+<div class="priority-filter">
+  <label class="form-label fw-semibold" for="priority-filter">
+    Filter by priority
+  </label>
+
+  <select
+    id="priority-filter"
+    class="form-select"
+    [value]="value()"
+    (change)="onSelectionChange($event)"
+  >
+    @for (option of options; track option) {
+      <option [value]="option">
+        {{ option === 'All' ? 'All priorities' : option }}
+      </option>
+    }
+  </select>
+</div>

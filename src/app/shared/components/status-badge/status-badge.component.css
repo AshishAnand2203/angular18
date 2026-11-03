@@ -1,0 +1,9 @@
+:host {
+  display: inline-block;
+}
+
+.badge {
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: 600;
+}
